@@ -2,10 +2,11 @@ name: GitHub Actions Example
 on: [push]		
 jobs:
   Explore-GitHub-Actions: #Job name
-    runs-on: alpine #image to use to execute steps
+    runs-on: ubuntu-latest #image to use to execute steps. That's the tag of one of the GitHub hosted runners available for free.
     steps:
-      - run: apt update
-      - run: apt full-upgrade
+      - run: | #multine
+          sudo apt update
+          sudo apt full-upgrade
       - run: echo " The job was automatically triggered by a ${{Github.event_name }} event." # When no name is defined the cmd is choosen as step alias
       - run: echo " This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo " The name of your branch is ${{ GitHub.ref }} and your repository is ${{ GitHub.repository }}."
