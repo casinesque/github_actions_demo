@@ -1,0 +1,41 @@
+#Case 1.
+# runs-on defines the tag of the runner. On hosted GH plan they provide Linux,Mac,Win.
+# Linux: ubuntu-latest
+# This is going to use a shell-executor like, meaning jobs are directly executed on the OS of the runner (ubuntu-latest) and not
+# in a docker container.
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest  # Esegue il job su un runner Ubuntu, non in un container
+
+# Instead, if we use container.image, jobs are executed the specified docker container and the underlying os of the runner gets irrelevant.
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest  # Esegue il job su un runner Ubuntu, ma dentro il container
+#     container:
+#       image: alpine:latest 
+
+name: GitHub Actions Example
+on: [push]		
+jobs:
+  Explore-GitHub-Actions: #Job name
+    runs-on: ubuntu-latest #image to use to execute steps. That's the tag of one of the GitHub hosted runners available for free.
+    container:
+      image: alpine:latest
+    steps:
+      - run: | #multine
+          # sudo apt update
+          # sudo apt full-upgrade
+            apk update
+            apk add --no-cache curl
+      - run: echo " The job was automatically triggered by a ${{Github.event_name }} event." # When no name is defined the cmd is choosen as step alias
+      - run: echo " This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo " The name of your branch is ${{ GitHub.ref }} and your repository is ${{ GitHub.repository }}."
+      - name: Check out repository code #represents the name of the inner step within the job
+        uses: actions/checkout@v3
+      - run: echo " The ${{ GitHub.repository }} repository has been cloned to the runner." 
+      - run: echo " The workflow is now ready to test your code on the runner."
+        name: List files in the repository
+      - run: |
+          ls ${{ GitHub.workspace }}
+      - run: echo " This job's status is ${{ job.status }}."
