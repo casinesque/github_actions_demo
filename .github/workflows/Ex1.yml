@@ -39,5 +39,5 @@ jobs:
       - run: |
           # ls ${{ GitHub.workspace }} The env var it's not mounted on the container but only on the host machine.
           # The corresponding path mounted on the container is /github/workspace
-            ls -Rhal /
+            ls -Rhal /github/
       - run: echo " This job's status is ${{ job.status }}."
