@@ -37,5 +37,7 @@ jobs:
       - run: echo " The workflow is now ready to test your code on the runner."
         name: List files in the repository
       - run: |
-          ls ${{ GitHub.workspace }}
+          # ls ${{ GitHub.workspace }} The env var it's not mounted on the container but only on the host machine.
+          # The corresponding path mounted on the container is /github/workspace
+          ls /github/workspaces
       - run: echo " This job's status is ${{ job.status }}."
