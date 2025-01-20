@@ -2,7 +2,7 @@ name: GitHub Actions Example
 on: [push]		
 jobs:
   Explore-GitHub-Actions: #Job name
-    runs-on: ubuntu-latest #image to use to execute steps
+    runs-on: alpine #image to use to execute steps
     steps:
       - run: apt update
       - run: apt full-upgrade
